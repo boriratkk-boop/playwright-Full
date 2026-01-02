@@ -20,8 +20,12 @@ jobs:
     - run: npx playwright install --with-deps
     - run: npm test
 
-    - uses: actions/upload-artifact@v4
+    - name: Upload test results
       if: always()
+      uses: actions/upload-artifact@v4
       with:
-        name: screenshots
-        path: screenshots/
+        name: test-results
+        path: |
+          test-results/
+          playwright-report/
+          screenshots/
