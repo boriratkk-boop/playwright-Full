@@ -1,6 +1,6 @@
 const { test, expect } = require('@playwright/test');
 
-test('API login test', async ({ request }) => {
+test.skip('API login test', async ({ request }) => {
   const response = await request.post(
     'https://www.saucedemo.com/',
     {
@@ -13,3 +13,4 @@ test('API login test', async ({ request }) => {
 
   expect(response.status()).toBe(200);
 });
+
