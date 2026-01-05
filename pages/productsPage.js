@@ -5,6 +5,8 @@ class ProductsPage {
     this.cart_link = page.locator('.shopping_cart_link');
     this.addButtons = page.locator('button[data-test^="add-to-cart-"]');
     this.inven_item = page.locator('.inventory_item_name');
+    this.sortDropdown = page.locator('.product_sort_container');
+
 
   }
 
@@ -36,6 +38,14 @@ class ProductsPage {
 
     return totalProducts;
 
+  }
+  
+  async sortByNameAToZ() {
+    await this.sortDropdown.selectOption('az');
+  }
+
+  async getAllProductNames() {
+    return await this.inven_item.allTextContents();
   }
 }
 
