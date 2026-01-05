@@ -4,7 +4,7 @@ class LoginPage {
     this.username = page.locator('#user-name');
     this.password = page.locator('#password');
     this.loginBtn = page.locator('#login-button');
-    this.errmessage = page.locator('#error');
+    this.errmessage = page.locator('[data-test="error"]');
   }
 
   async goto() {
@@ -26,3 +26,4 @@ class LoginPage {
 }
 
 module.exports = { LoginPage };
+
