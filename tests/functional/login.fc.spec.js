@@ -42,7 +42,7 @@ test('@functional Should show an error message if log in with both fields blank'
   await expect(loginPage.errmessage).toHaveText('Epic sadface: Username is required');
 });
 
-test('@functional Input fields', async ({loginPage, page}) => {
+test('@functional Should logged in successfully with valid credentials', async ({loginPage, page}) => {
   await loginPage.goto();
   await loginPage.login(
     users.validUser.username,
@@ -51,7 +51,7 @@ test('@functional Input fields', async ({loginPage, page}) => {
   );
 });
 
-test('@functional Input fields', async ({loginPage, page}) => {
+test('@functional Should logged in fails with an error message when using invalid credentials', async ({loginPage, page}) => {
   await loginPage.goto();
   await loginPage.login(
     users.validUser.username,
