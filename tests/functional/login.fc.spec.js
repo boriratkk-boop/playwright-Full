@@ -21,3 +21,43 @@ test('@functional Should show an error message if log in without a username', as
   );
   await expect(loginPage.errmessage).toHaveText('Epic sadface: Username is required');
 });
+
+test('@functional Should show an error message if log in without a password', async ({loginPage, page}) => {
+  await loginPage.goto();
+  await loginPage.login(
+    users.validUser.username,
+    '',
+    'fucntional-login-TC003'
+  );
+  await expect(loginPage.errmessage).toHaveText('Epic sadface: Password is required');
+});
+
+test('@functional Should show an error message if log in with both fields blank', async ({loginPage, page}) => {
+  await loginPage.goto();
+  await loginPage.login(
+    '',
+    '',
+    'fucntional-login-TC004'
+  );
+  await expect(loginPage.errmessage).toHaveText('Epic sadface: Username is required');
+});
+
+test('@functional Input fields', async ({loginPage, page}) => {
+  await loginPage.goto();
+  await loginPage.login(
+    users.validUser.username,
+    users.validUser.password,
+    'fucntional-login-TC005'
+  );
+});
+
+test('@functional Input fields', async ({loginPage, page}) => {
+  await loginPage.goto();
+  await loginPage.login(
+    users.validUser.username,
+    'test_sauce',
+    'fucntional-login-TC006'
+  );
+  await expect(loginPage.errmessage).toHaveText('Epic sadface: Username and password do not match any user in this service');
+
+});
