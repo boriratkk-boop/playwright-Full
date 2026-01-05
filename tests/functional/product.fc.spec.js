@@ -7,12 +7,16 @@ test('@functional Adding all available products to the cart and then removing th
   // login
   await loginPage.login(users.validUser.username, users.validUser.password);
 
+  // addAll
   const expectedCount = await productsPage.addAllProducts('addAll-TC007');
 
+  // OpenCart
   await productsPage.openCart('afterAddAll-TC007');
   
+  // Get item
   const allItems = await cartPage.getCartItems();
   
+  // Check item
   await expect(allItems.length).toBe(expectedCount);
 
   // remove all products
