@@ -3,6 +3,7 @@ class ProductsPage {
     this.page = page;
     this.backpack = page.locator('#add-to-cart-sauce-labs-backpack');
     this.cart_link = page.locator('.shopping_cart_link');
+    this.addButtons = page.locator('button[data-test^="add-to-cart-"]');
 
   }
 
@@ -15,6 +16,21 @@ class ProductsPage {
     await this.cart_link.click();
     await this.page.screenshot({ path: `screenshots/${testName}-open-cart.png` });
   }
+
+  async addAllProducts(testName) {
+    const count = await this.addButtons.count();
+    for (let i = 0; i < count; i++) {
+      await this.addButtons.nth(i).click();
+    }
+    await this.page.screenshot({ path: `screenshots/${testName}-added-all.png` });
+  }
+
+  async openCart(testName) {
+    await this.cart_link.click();
+    await this.page.screenshot({ path: `screenshots/${testName}-open-cart.png` });
+  }
 }
+
+
 
 module.exports = { ProductsPage };
