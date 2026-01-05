@@ -122,7 +122,7 @@ test('@functional Product should correctly sorts items from A to Z', async ({ lo
     );
   
     // เลือก sort Price High → Low
-    await productsPage.sortByPriceLowToHigh();
+    await productsPage.sortByPriceHighToLow();
   
     // ดึงราคาสินค้าจากหน้า UI
     const pricesFromUI = await productsPage.getAllProductPrices();
