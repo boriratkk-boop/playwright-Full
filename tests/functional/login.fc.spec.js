@@ -19,5 +19,5 @@ test('@functional Should show an error message if log in without a username', as
     users.validUser.password,
     'fucntional-login'
   );
-  await expect(loginPage.error).toHaveValue('Epic sadface: Username is required');
+  await expect(loginPage.error).toHaveText('Epic sadface: Username is required');
 });
