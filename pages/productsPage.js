@@ -20,7 +20,7 @@ class ProductsPage {
 
   async openCart(testName) {
     await this.cart_link.click();
-    await this.page.screenshot({ path: `screenshots/functioncal/product/${testName}-open-cart.png` ,
+    await this.page.screenshot({ path: `screenshots/functional/product/${testName}-open-cart.png` ,
     fullPage: true
   });
   }
@@ -33,7 +33,7 @@ class ProductsPage {
   }
   
     await this.page.screenshot({
-      path: `screenshots/functioncal/product/${testName}-added-all.png`,
+      path: `screenshots/functional/product/${testName}-added-all.png`,
       fullPage: true
     });
 
