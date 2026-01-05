@@ -21,7 +21,7 @@ class CartPage {
     }
   
     await this.page.screenshot({
-      path: `screenshots/${testName}-removed-all.png`
+      path: `screenshots/functioncal/product/${testName}-removed-all.png`
     });
   }
   
@@ -29,4 +29,3 @@ class CartPage {
 }
 
 module.exports = { CartPage };
-
