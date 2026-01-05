@@ -14,11 +14,10 @@ test('@functional Input fields', async ({loginPage, page}) => {
 
 test('@functional Should show an error message if log in without a username', async ({loginPage, page}) => {
   await loginPage.goto();
-  await loginPage.check_fields(
+  await loginPage.login(
     '',
     users.validUser.password,
     'fucntional-login-TC002'
   );
-  await loginPage.loginBtn.click();
   await expect(loginPage.errmessage).toHaveText('Epic sadface: Username is required');
 });
