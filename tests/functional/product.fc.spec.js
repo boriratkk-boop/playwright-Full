@@ -8,20 +8,19 @@ test('@functional Adding all available products to the cart and then removing th
   await loginPage.login(users.validUser.username, users.validUser.password);
 
   // add all products
-  await productsPage.addAllProducts('addAll');
+  await productsPage.addAllProducts('addAll-TC007');
 
   // open cart
-  await productsPage.openCart('afterAddAll');
+  await productsPage.openCart('afterAddAll-TC007');
 
   // verify all added
   const allItems = await cartPage.getCartItems();
   await expect(allItems.length).toBeGreaterThan(0);
 
   // remove all products
-  await cartPage.removeAllProducts('afterRemoveAll');
+  await cartPage.removeAllProducts('afterRemoveAll-TC007');
 
   // verify cart is empty
   const finalItems = await cartPage.getCartItems();
   await expect(finalItems.length).toBe(0);
 });
-
