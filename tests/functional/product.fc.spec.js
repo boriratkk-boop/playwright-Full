@@ -28,7 +28,7 @@ test('@functional Adding all available products to the cart and then removing th
 });
 
 test('@functional Product should correctly sorts items from A to Z', async ({ loginPage, productsPage, page }) => {
-    // 1️⃣ Login
+    //  Login
     await loginPage.goto();
     await loginPage.login(
       users.validUser.username,
@@ -57,7 +57,7 @@ test('@functional Product should correctly sorts items from A to Z', async ({ lo
   });
 
   test('@functional Product should correctly sorts items from Z to A', async ({ loginPage, productsPage, page }) => {
-    // 1️⃣ Login
+    //  Login
     await loginPage.goto();
     await loginPage.login(
       users.validUser.username,
@@ -85,3 +85,57 @@ test('@functional Product should correctly sorts items from A to Z', async ({ lo
     });
   });
 
+
+  test('@functional Product should correctly sort items from Low to High price', async ({ loginPage, productsPage, page }) => {
+    // Login
+    await loginPage.goto();
+    await loginPage.login(
+      users.validUser.username,
+      users.validUser.password
+    );
+  
+    // เลือก sort Price Low → High
+    await productsPage.sortByPriceLowToHigh();
+  
+    // ดึงราคาสินค้าจากหน้า UI
+    const pricesFromUI = await productsPage.getAllProductPrices();
+  
+    // สร้าง expected result (เรียงราคาจากต่ำ → สูง)
+    const sortedPrices = [...pricesFromUI].sort((a, b) => a - b);
+  
+    // Assert ว่า UI เรียงราคาถูกต้อง
+    await expect(pricesFromUI).toEqual(sortedPrices);
+  
+    // Screenshot เป็น evidence
+    await page.screenshot({
+      path: 'screenshots/functional/product/TC010_sort_price_low_to_high.png',
+      fullPage: true
+    });
+  });
+
+  test('@functional Product should correctly sort items from High to Low price', async ({ loginPage, productsPage, page }) => {
+    // Login
+    await loginPage.goto();
+    await loginPage.login(
+      users.validUser.username,
+      users.validUser.password
+    );
+  
+    // เลือก sort Price High → Low
+    await productsPage.sortByPriceLowToHigh();
+  
+    // ดึงราคาสินค้าจากหน้า UI
+    const pricesFromUI = await productsPage.getAllProductPrices();
+  
+    // สร้าง expected result (เรียงราคาจากสูง → ต่ำ)
+    const sortedPrices = [...pricesFromUI].sort((a, b) => b - a);
+  
+    // Assert ว่า UI เรียงราคาถูกต้อง
+    await expect(pricesFromUI).toEqual(sortedPrices);
+  
+    // Screenshot เป็น evidence
+    await page.screenshot({
+      path: 'screenshots/functional/product/TC011_sort_price_high_to_low.png',
+      fullPage: true
+    });
+  });
