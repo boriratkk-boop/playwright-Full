@@ -9,12 +9,16 @@ class ProductsPage {
 
   async addToCart(testName) {
     await this.backpack.click();
-    await this.page.screenshot({ path: `screenshots/${testName}-add-to-cart.png` });
+    await this.page.screenshot({ path: `screenshots/${testName}-add-to-cart.png`,
+    fullPage: true 
+  });
   }
 
   async openCart(testName) {
     await this.cart_link.click();
-    await this.page.screenshot({ path: `screenshots/functioncal/product/${testName}-open-cart.png` });
+    await this.page.screenshot({ path: `screenshots/functioncal/product/${testName}-open-cart.png` ,
+    fullPage: true
+  });
   }
 
   async addAllProducts(testName) {
@@ -23,7 +27,8 @@ class ProductsPage {
     }
   
     await this.page.screenshot({
-      path: `screenshots/functioncal/product/${testName}-added-all.png`
+      path: `screenshots/functioncal/product/${testName}-added-all.png`,
+      fullPage: true
     });
   }
 }
