@@ -18,11 +18,13 @@ class ProductsPage {
   }
 
   async addAllProducts(testName) {
-    const count = await this.addButtons.count();
-    for (let i = 0; i < count; i++) {
-      await this.addButtons.nth(i).click();
+    while (await this.addButtons.count() > 0) {
+      await this.addButtons.first().click();
     }
-    await this.page.screenshot({ path: `screenshots/${testName}-added-all.png` });
+  
+    await this.page.screenshot({
+      path: `screenshots/${testName}-added-all.png`
+    });
   }
 
   async openCart(testName) {
