@@ -55,3 +55,32 @@ test('@functional Product should correctly sorts items from A to Z', async ({ lo
       fullPage: true
     });
   });
+
+  test('@functional Product should correctly sorts items from Z to A', async ({ loginPage, productsPage, page }) => {
+    // 1️⃣ Login
+    await loginPage.goto();
+    await loginPage.login(
+      users.validUser.username,
+      users.validUser.password
+    );
+  
+    // เลือก sort Z → A
+    await productsPage.sortByNameZToA();
+  
+    // ดึงชื่อสินค้าทั้งหมดจากหน้า UI
+    const productNamesFromUI = await productsPage.getAllProductNames();
+  
+    // สร้าง list ที่ควรจะเป็น (เรียง Z → A)
+    const sortedNames = [...productNamesFromUI].sort((a, b) =>
+      b.localeCompare(a)
+    );
+  
+    // Assert ว่า UI เรียงถูกต้อง
+    await expect(productNamesFromUI).toEqual(sortedNames);
+  
+    // Screenshot เป็น evidence
+    await page.screenshot({
+      path: 'screenshots/functioncal/product/TC008-Select Z-A.png',
+      fullPage: true
+    });
+  });
