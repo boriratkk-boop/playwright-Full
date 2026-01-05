@@ -17,14 +17,6 @@ class LoginPage {
     await this.page.screenshot({ path: `screenshots/${testName}-login.png` });
   }
 
-  async check_errorms(username, password, testName) {
-    await this.username.fill(username);
-    await this.password.fill(password);
-    await this.loginBtn.click();
-    await this.page.screenshot({ path: `screenshots/${testName}-login.png` });
-  }
-
-
   async login(username, password, testName) {
     await this.username.fill(username);
     await this.password.fill(password);
