@@ -43,12 +43,28 @@ class ProductsPage {
   async sortByNameAToZ() {
     await this.sortDropdown.selectOption('az');
   }
+
   async sortByNameZToA() {
     await this.sortDropdown.selectOption('za');
   }
 
   async getAllProductNames() {
     return await this.inven_item.allTextContents();
+  }
+
+  async sortByPriceLowToHigh() {
+    await this.sortDropdown.selectOption('lohi');
+  }
+  async sortByPriceHighToLow() {
+    await this.sortDropdown.selectOption('hilo');
+  }
+  async getAllProductPrices() {
+    const priceTexts = await this.productPrices.allTextContents();
+
+    // แปลง "$29.99" → 29.99 (number)
+    return priceTexts.map(price =>
+      Number(price.replace('$', ''))
+    );
   }
 }
 
