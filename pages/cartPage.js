@@ -21,7 +21,7 @@ class CartPage {
     }
   
     await this.page.screenshot({
-      path: `screenshots/functioncal/product/${testName}-removed-all.png`,
+      path: `screenshots/functional/product/${testName}-removed-all.png`,
       fullPage: true
     });
   }
