@@ -5,7 +5,7 @@ test('@functional Adding all available products to the cart and then removing th
   await loginPage.goto();
 
   // login
-  await loginPage.login(users.validUser.username, users.validUser.password,'fucntional-login-TC007');
+  await loginPage.login(users.validUser.username, users.validUser.password);
 
   // add all products
   await productsPage.addAllProducts('addAll');
@@ -24,3 +24,4 @@ test('@functional Adding all available products to the cart and then removing th
   const finalItems = await cartPage.getCartItems();
   await expect(finalItems.length).toBe(0);
 });
+
