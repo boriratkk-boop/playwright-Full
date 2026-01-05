@@ -4,6 +4,7 @@ class ProductsPage {
     this.backpack = page.locator('#add-to-cart-sauce-labs-backpack');
     this.cart_link = page.locator('.shopping_cart_link');
     this.addButtons = page.locator('button[data-test^="add-to-cart-"]');
+    this.inven_item = page.locator('.inventory_item_name');
 
   }
 
@@ -22,14 +23,19 @@ class ProductsPage {
   }
 
   async addAllProducts(testName) {
-    while (await this.addButtons.count() > 0) {
-      await this.addButtons.first().click();
-    }
+    const totalProducts = await this.inven_item.count();
+
+  while (await this.addButtons.count() > 0) {
+    await this.addButtons.first().click();
+  }
   
     await this.page.screenshot({
       path: `screenshots/functioncal/product/${testName}-added-all.png`,
       fullPage: true
     });
+
+    return totalProducts;
+
   }
 }
 
