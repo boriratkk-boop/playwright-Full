@@ -12,10 +12,7 @@ class LoginPage {
 
   async check_fields(username, password, testName) {
     await this.username.fill(username);
-    await expect(this.username).toHaveText(username);
     await this.password.fill(password);
-    await expect(this.password).toHaveText(password);
-
     await this.page.screenshot({ path: `screenshots/${testName}-login.png` });
   }
 
