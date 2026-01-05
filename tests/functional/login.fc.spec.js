@@ -6,7 +6,7 @@ test('@functional Input fields', async ({loginPage, page}) => {
   await loginPage.check_fields(
     users.validUser.username,
     users.validUser.password,
-    'fucntional-login'
+    'fucntional-login-TC001'
   );
   await expect(loginPage.username).toHaveValue(users.validUser.username);
   await expect(loginPage.password).toHaveValue(users.validUser.password);
@@ -17,7 +17,7 @@ test('@functional Should show an error message if log in without a username', as
   await loginPage.check_fields(
     '',
     users.validUser.password,
-    'fucntional-login'
+    'fucntional-login-TC002'
   );
   await loginPage.loginBtn.click();
   await expect(loginPage.errmessage).toHaveText('Epic sadface: Username is required');
