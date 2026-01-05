@@ -4,6 +4,7 @@ class LoginPage {
     this.username = page.locator('#user-name');
     this.password = page.locator('#password');
     this.loginBtn = page.locator('#login-button');
+    this.title = page.locator('[data-test="title"]');
     this.errmessage = page.locator('[data-test="error"]');
   }
 
@@ -26,4 +27,3 @@ class LoginPage {
 }
 
 module.exports = { LoginPage };
-
