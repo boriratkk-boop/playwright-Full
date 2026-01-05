@@ -16,13 +16,16 @@ class CartPage {
   }
 
   async removeAllProducts(testName) {
-    const count = await this.removeButtons.count();
-    for (let i = 0; i < count; i++) {
-      await this.removeButtons.nth(i).click();
+    while (await this.removeButtons.count() > 0) {
+      await this.removeButtons.first().click();
     }
-    await this.page.screenshot({ path: `screenshots/${testName}-removed-all.png` });
+  
+    await this.page.screenshot({
+      path: `screenshots/${testName}-removed-all.png`
+    });
   }
   
+
 }
 
 module.exports = { CartPage };
