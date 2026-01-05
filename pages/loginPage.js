@@ -4,7 +4,7 @@ class LoginPage {
     this.username = page.locator('#user-name');
     this.password = page.locator('#password');
     this.loginBtn = page.locator('#login-button');
-    this.errmessage = page.locator('[data-test="error"]');
+    this.errmessage = page.locator('#error');
   }
 
   async goto() {
@@ -17,6 +17,12 @@ class LoginPage {
     await this.page.screenshot({ path: `screenshots/${testName}-login.png` });
   }
 
+  async check_errorms(username, password, testName) {
+    await this.username.fill(username);
+    await this.password.fill(password);
+    await this.loginBtn.click();
+    await this.page.screenshot({ path: `screenshots/${testName}-login.png` });
+  }
 
 
   async login(username, password, testName) {
@@ -28,4 +34,3 @@ class LoginPage {
 }
 
 module.exports = { LoginPage };
-
