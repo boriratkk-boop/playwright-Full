@@ -14,7 +14,7 @@ class ProductsPage {
 
   async openCart(testName) {
     await this.cart_link.click();
-    await this.page.screenshot({ path: `screenshots/${testName}-open-cart.png` });
+    await this.page.screenshot({ path: `screenshots/functioncal/login/${testName}-open-cart.png` });
   }
 
   async addAllProducts(testName) {
@@ -23,13 +23,8 @@ class ProductsPage {
     }
   
     await this.page.screenshot({
-      path: `screenshots/${testName}-added-all.png`
+      path: `screenshots/functioncal/login/${testName}-added-all.png`
     });
-  }
-
-  async openCart(testName) {
-    await this.cart_link.click();
-    await this.page.screenshot({ path: `screenshots/${testName}-open-cart.png` });
   }
 }
 
