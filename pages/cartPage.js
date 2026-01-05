@@ -7,7 +7,7 @@ class CartPage {
   }
 
   async verifyItem(testName) {
-    await this.inven_item.locator().waitFor();
+    await this.inven_item.waitFor();
     await this.page.screenshot({ path: `screenshots/${testName}-verify-cart.png` });
   }
 
@@ -29,3 +29,4 @@ class CartPage {
 }
 
 module.exports = { CartPage };
+
