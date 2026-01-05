@@ -8,8 +8,8 @@ test('@functional Input fields', async ({loginPage, page}) => {
     users.validUser.password,
     'fucntional-login'
   );
-  await expect(loginPage.username())
+  await expect(loginPage.username)
     .toHaveValue(users.validUser.username);
-  await expect(loginPage.password())
+  await expect(loginPage.password)
     .toHaveValue(users.validUser.password);
 });
