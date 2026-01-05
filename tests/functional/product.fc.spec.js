@@ -7,15 +7,13 @@ test('@functional Adding all available products to the cart and then removing th
   // login
   await loginPage.login(users.validUser.username, users.validUser.password);
 
-  // add all products
-  await productsPage.addAllProducts('addAll-TC007');
+  const expectedCount = await productsPage.addAllProducts('addAll-TC007');
 
-  // open cart
   await productsPage.openCart('afterAddAll-TC007');
-
-  // verify all added
+  
   const allItems = await cartPage.getCartItems();
-  await expect(allItems.length).toBeGreaterThan(0);
+  
+  await expect(allItems.length).toBe(expectedCount);
 
   // remove all products
   await cartPage.removeAllProducts('afterRemoveAll-TC007');
