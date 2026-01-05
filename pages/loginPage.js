@@ -15,14 +15,14 @@ class LoginPage {
   async check_fields(username, password, testName) {
     await this.username.fill(username);
     await this.password.fill(password);
-    await this.page.screenshot({ path: `screenshots/functioncal/login/${testName}-login.png` });
+    await this.page.screenshot({ path: `screenshots/functional/login/${testName}-login.png` });
   }
 
   async login(username, password, testName) {
     await this.username.fill(username);
     await this.password.fill(password);
     await this.loginBtn.click();
-    await this.page.screenshot({ path: `screenshots/functioncal/login/${testName}-login.png` });
+    await this.page.screenshot({ path: `screenshots/functional/login/${testName}-login.png` });
   }
 }
 
