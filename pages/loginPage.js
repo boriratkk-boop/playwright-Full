@@ -10,6 +10,17 @@ class LoginPage {
     await this.page.goto('https://www.saucedemo.com/');
   }
 
+  async check_fields() {
+    await this.username.fill(username);
+    await expect(this.username).toHaveText(username);
+    await this.password.fill(password);
+    await expect(this.password).toHaveText(password);
+
+    await this.page.screenshot({ path: `screenshots/${testName}-login.png` });
+  }
+
+
+
   async login(username, password, testName) {
     await this.username.fill(username);
     await this.password.fill(password);
