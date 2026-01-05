@@ -49,6 +49,8 @@ test('@functional Should logged in successfully with valid credentials', async (
     users.validUser.password,
     'fucntional-login-TC005'
   );
+  await expect(loginPage.title).toHaveText('Products');
+
 });
 
 test('@functional Should logged in fails with an error message when using invalid credentials', async ({loginPage, page}) => {
