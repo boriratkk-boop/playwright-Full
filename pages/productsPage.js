@@ -6,6 +6,7 @@ class ProductsPage {
     this.addButtons = page.locator('button[data-test^="add-to-cart-"]');
     this.inven_item = page.locator('.inventory_item_name');
     this.sortDropdown = page.locator('.product_sort_container');
+    this.productPrices = page.locator('.inventory_item_price');
 
 
   }
