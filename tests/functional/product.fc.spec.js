@@ -51,7 +51,7 @@ test('@functional Product should correctly sorts items from A to Z', async ({ lo
   
     // Screenshot เป็น evidence
     await page.screenshot({
-      path: 'screenshots/functioncal/product/TC008-Select A-Z.png',
+      path: 'screenshots/functional/product/TC008-Select A-Z.png',
       fullPage: true
     });
   });
