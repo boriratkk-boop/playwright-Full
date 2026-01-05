@@ -1,7 +1,7 @@
 const { test, expect } = require('../../fixtures/testFixtures');
 const users = require('../../data/users');
 
-test('@functional Input fields', async ({page}) => {
+test('@functional Input fields', async ({loginPage, page}) => {
   await loginPage.goto();
   await loginPage.check_fields(
     users.validUser.username,
