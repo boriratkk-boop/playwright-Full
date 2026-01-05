@@ -39,9 +39,12 @@ class ProductsPage {
     return totalProducts;
 
   }
-  
+
   async sortByNameAToZ() {
     await this.sortDropdown.selectOption('az');
+  }
+  async sortByNameZToA() {
+    await this.sortDropdown.selectOption('za');
   }
 
   async getAllProductNames() {
