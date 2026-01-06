@@ -1,141 +1,74 @@
-const { test, expect } = require('../../fixtures/testFixtures');
-const users = require('../../data/users');
+class ProductsPage {
+  constructor(page) {
+    this.page = page;
+    this.backpack = page.locator('#add-to-cart-sauce-labs-backpack');
+    this.cart_link = page.locator('.shopping_cart_link');
+    this.addButtons = page.locator('button[data-test^="add-to-cart-"]');
+    this.inven_item = page.locator('.inventory_item_name');
+    this.sortDropdown = page.locator('.product_sort_container');
+    this.productPrices = page.locator('.inventory_item_price');
 
-test('@functional Adding all available products to the cart and then removing them, verifying that the cart updates correctly', async ({ loginPage, productsPage, cartPage, page }) => {
-  await loginPage.goto();
 
-  // login
-  await loginPage.login(users.validUser.username, users.validUser.password);
+  }
 
-  // addAll
-  const expectedCount = await productsPage.addAllProducts('TC007-addAll');
+  async addToCart(testName) {
+    await this.backpack.click();
+    await this.page.screenshot({ path: `screenshots/${testName}-add-to-cart.png`,
+    fullPage: true 
+  });
+  }
 
-  // OpenCart
-  await productsPage.openCart('TC007-afterAddAll');
-  
-  // Get item
-  const allItems = await cartPage.getCartItems();
-  
-  // Check item
-  await expect(allItems.length).toBe(expectedCount);
+  async openCart(testName) {
+    await this.cart_link.click();
+    await this.page.screenshot({ path: `screenshots/functional/product/${testName}-open-cart.png` ,
+    fullPage: true
+  });
+  }
 
-  // remove all products
-  await cartPage.removeAllProducts('TC007-afterRemoveAll');
+  async addAllProducts(testName) {
+    const totalProducts = await this.inven_item.count();
 
-  // verify cart is empty
-  const finalItems = await cartPage.getCartItems();
-  await expect(finalItems.length).toBe(0);
-});
-
-test('@functional Product should correctly sorts items from A to Z', async ({ loginPage, productsPage, page }) => {
-    //  Login
-    await loginPage.goto();
-    await loginPage.login(
-      users.validUser.username,
-      users.validUser.password
-    );
+  while (await this.addButtons.count() > 0) {
+    await this.addButtons.first().click();
+  }
   
-    // เลือก sort A → Z
-    await productsPage.sortByNameAToZ();
-  
-    // ดึงชื่อสินค้าทั้งหมดจากหน้า UI
-    const productNamesFromUI = await productsPage.getAllProductNames();
-  
-    // สร้าง list ที่ควรจะเป็น (เรียง A → Z)
-    const sortedNames = [...productNamesFromUI].sort((a, b) =>
-      a.localeCompare(b)
-    );
-  
-    // Assert ว่า UI เรียงถูกต้อง
-    await expect(productNamesFromUI).toEqual(sortedNames);
-  
-    // Screenshot เป็น evidence
-    await page.screenshot({
-      path: 'screenshots/functional/product/TC008-Select A-Z.png',
+    await this.page.screenshot({
+      path: `screenshots/functional/product/${testName}-added-all.png`,
       fullPage: true
     });
-  });
 
-  test('@functional Product should correctly sorts items from Z to A', async ({ loginPage, productsPage, page }) => {
-    //  Login
-    await loginPage.goto();
-    await loginPage.login(
-      users.validUser.username,
-      users.validUser.password
+    return totalProducts;
+
+  }
+
+  async sortByNameAToZ() {
+    await this.sortDropdown.selectOption('az');
+  }
+
+  async sortByNameZToA() {
+    await this.sortDropdown.selectOption('za');
+  }
+
+  async getAllProductNames() {
+    return await this.inven_item.allTextContents();
+  }
+
+  async sortByPriceLowToHigh() {
+    await this.sortDropdown.selectOption('lohi');
+  }
+  async sortByPriceHighToLow() {
+    await this.sortDropdown.selectOption('hilo');
+  }
+  async getAllProductPrices() {
+    const priceTexts = await this.productPrices.allTextContents();
+
+    // แปลง "$29.99" → 29.99 (number)
+    return priceTexts.map(price =>
+      Number(price.replace('$', ''))
     );
-  
-    // เลือก sort Z → A
-    await productsPage.sortByNameZToA();
-  
-    // ดึงชื่อสินค้าทั้งหมดจากหน้า UI
-    const productNamesFromUI = await productsPage.getAllProductNames();
-  
-    // สร้าง list ที่ควรจะเป็น (เรียง Z → A)
-    const sortedNames = [...productNamesFromUI].sort((a, b) =>
-      b.localeCompare(a)
-    );
-  
-    // Assert ว่า UI เรียงถูกต้อง
-    await expect(productNamesFromUI).toEqual(sortedNames);
-  
-    // Screenshot เป็น evidence
-    await page.screenshot({
-      path: 'screenshots/functional/product/TC009-Select Z-A.png',
-      fullPage: true
-    });
-  });
+  }
+}
 
 
-  test('@functional Product should correctly sort items from Low to High price', async ({ loginPage, productsPage, page }) => {
-    // Login
-    await loginPage.goto();
-    await loginPage.login(
-      users.validUser.username,
-      users.validUser.password
-    );
-  
-    // เลือก sort Price Low → High
-    await productsPage.sortByPriceLowToHigh();
-  
-    // ดึงราคาสินค้าจากหน้า UI
-    const pricesFromUI = await productsPage.getAllProductPrices();
-  
-    // สร้าง expected result (เรียงราคาจากต่ำ → สูง)
-    const sortedPrices = [...pricesFromUI].sort((a, b) => a - b);
-  
-    // Assert ว่า UI เรียงราคาถูกต้อง
-    await expect(pricesFromUI).toEqual(sortedPrices);
-  
-    // Screenshot เป็น evidence
-    await page.screenshot({
-      path: 'screenshots/functional/product/TC010_sort_price_low_to_high.png',
-      fullPage: true
-    });
-  });
 
-  test('@functional Product should correctly sort items from High to Low price', async ({ loginPage, productsPage, page }) => {
-    // Login
-    await loginPage.goto();
-    await loginPage.login(
-      users.validUser.username,
-      users.validUser.password
-    );
-  
-    // เลือก sort Price High → Low
-    await productsPage.sortByPriceHighToLow();
-  
-    // ดึงราคาสินค้าจากหน้า UI
-    const pricesFromUI = await productsPage.getAllProductPrices();
-  
-    // สร้าง expected result (เรียงราคาจากสูง → ต่ำ)
-    const sortedPrices = [...pricesFromUI].sort((a, b) => b - a);
-  
-    // Assert ว่า UI เรียงราคาถูกต้อง
-    await expect(pricesFromUI).toEqual(sortedPrices);
-  
-    // Screenshot เป็น evidence
-    await page.screenshot({
-      path: 'screenshots/functional/product/TC011_sort_price_high_to_low.png',
-      fullPage: true
-    });
-  });
+module.exports = { ProductsPage };
