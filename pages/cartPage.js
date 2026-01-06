@@ -4,7 +4,10 @@ class CartPage {
     this.inven_item = page.locator('.inventory_item_name');
     this.cartItems = page.locator('.cart_item');
     this.removeButtons = page.locator('button[data-test^="remove-"]');
+    this.cartitle = page.locator('.title');
+
   }
+
 
   async verifyItem(testName) {
     await this.inven_item.waitFor();
